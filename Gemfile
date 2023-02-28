@@ -17,8 +17,11 @@ gem 'redis', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 gem 'dotenv-rails', groups: [:development, :test]
-
+gem 'pg_search'
+gem 'httparty'
 gem 'rspotify'
+# Gemfile
+gem 'mini_magick'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
