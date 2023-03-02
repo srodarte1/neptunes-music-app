@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :playlist_songs
-  resources :friendships
-  resources :favorites
-  resources :songs
+  resources :playlist_songs, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
+  resources :songs, only: [:index, :show]
   resources :playlists
   resources :users
 
