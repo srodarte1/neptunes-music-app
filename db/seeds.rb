@@ -6,6 +6,7 @@ Playlist.destroy_all
 User.destroy_all
 
 puts "Seeding user..."
+
 u1= User.create(name: "Saturn",
     email: 'saturn@sailorscout.com',
     password: 'Nike797524!',
@@ -17,15 +18,15 @@ u2= User.create(name: "Neptune",
 
 puts "Seeding fake playlists..."
 # Create 10 playlists, each owned by a user
-p1=Playlist.create(name: 'Orbiting', creator: u1)
-p2=Playlist.create(name: 'Drifting', creator: u2)
+p1=Playlist.create(name: 'Orbiting', user: u1)
+p2=Playlist.create(name: 'Drifting', user: u2)
 
 
 
 puts "Seeding songs..."
 
 s1=Song.create(name: 'Happy', artist: 'Pharrell Williams', album_name: 'Happy', duration_ms: 10000, spotify_id: 1, preview_url: 'https://www.epidemicsound.com/track/yrqOfPHAQf/', image_url: 'https://upload.wikimedia.org/wikipedia/en/2/23/Pharrell_Williams_-_Happy.jpg')
-:name
+
 
 puts "Seeding friendships... "
 

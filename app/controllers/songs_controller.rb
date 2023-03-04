@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
     #only index and show
  before_action :find_song, only: [:show]
+ 
   def index
    render json: Song.all, status: :ok
   end

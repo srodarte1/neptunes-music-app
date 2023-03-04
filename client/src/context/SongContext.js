@@ -13,7 +13,7 @@ const SongProvider = (props) => {
       const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${process.env.SPOTIFY_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN}`,
         },
       });
       const data = await response.json();

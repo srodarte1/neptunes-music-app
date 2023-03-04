@@ -11,7 +11,7 @@ class PlaylistSongsController < ApplicationController
     end
 
     private
-    private 
+
 
     def find_playlist_song
     @playlist_song = PlaylistSong.find(params[:id])
