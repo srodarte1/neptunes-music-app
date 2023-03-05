@@ -59,7 +59,7 @@ useEffect(() => {
     const handleLogout = (e) => {
      fetch('/logout', {method: "DELETE"})
       .then(() => setUser(null))
-      .then(() => navigate('/login'))
+      .then(() => navigate('/'))
       
     }
 
@@ -79,17 +79,38 @@ useEffect(() => {
                   // setMessage("User successfully logged in!")
                   
                 }) 
-                .then(() => navigate("/account"))
+                .then(() => navigate("/dashboard"))
             } else {
                 resp.json().then(messageObj => alert(messageObj.message))
             }})
           }
 
+          const handleUpdateUser = (updatedUser) => {
+            fetch(`/users/${user.id}`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(updatedUser),
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                if (data.user) {
+                  setUser(data.user); // update context state
+                } else {
+                  alert(data.errors);
+                }
+              });
+          };
+          
+
 
 
 
   return (
-   <UserContext.Provider value={{user, setUser, handleLogin, handleDelete, handleSignup, handleLogout}}>
+   <UserContext.Provider value={{user, setUser, handleLogin, handleDelete, handleSignup, handleLogout, handleUpdateUser}}>
     {children}
    </UserContext.Provider>
   )
