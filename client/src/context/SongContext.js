@@ -30,7 +30,7 @@ const SongProvider = (props) => {
         localStorage.setItem(cacheKey, JSON.stringify(songData));
         
         // Handle fetched songs data and update the state with the results
-        // For example, you can set the first song from the search results as the current song
+      
         setCurrentSong(songData[0]);
       } catch (error) {
         console.log(error);
