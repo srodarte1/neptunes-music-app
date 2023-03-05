@@ -9,21 +9,35 @@ const SongProvider = (props) => {
   const [currentSong, setCurrentSong] = useState(null);
 
   const searchSongs = async (searchTerm) => {
-    try {
-      const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN}`,
-        },
-      });
-      const data = await response.json();
-      // Handle fetched songs data and update the state with the results
-      // For example, you can set the first song from the search results as the current song
-      setCurrentSong(data.tracks.items[0]);
-    } catch (error) {
-      console.log(error);
+    const cacheKey = `search-${searchTerm}`;
+    const cachedData = localStorage.getItem(cacheKey);
+  
+    if (cachedData) {
+      setCurrentSong(JSON.parse(cachedData)[0]);
+    } else {
+      try {
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track&limit=25`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+        });
+        const data = await response.json();
+        const songData = data.tracks.items;
+  
+        // Cache the song data in localStorage
+        localStorage.setItem(cacheKey, JSON.stringify(songData));
+        
+        // Handle fetched songs data and update the state with the results
+        // For example, you can set the first song from the search results as the current song
+        setCurrentSong(songData[0]);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  
 
   return (
     <SongContext.Provider value={{ currentSong, searchSongs }}>

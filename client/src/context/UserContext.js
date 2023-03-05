@@ -53,7 +53,7 @@ useEffect(() => {
       e.preventDefault()
      fetch(`/users/${user.id}`, {method: "DELETE"})
       .then(() => setUser(null))
-      .then(() => navigate('/login'))
+      .then(() => navigate('/'))
       
     }
     const handleLogout = (e) => {

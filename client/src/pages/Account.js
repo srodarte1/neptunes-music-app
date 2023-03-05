@@ -17,6 +17,9 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 function Account() {
   const { user, handleDelete, handleUpdateUser } = useContext(UserContext);
   const [isDeleteConfirmationVisible, setIsDeleteConfirmationVisible] = useState(false);
+  const [avatarPreviewUrl, setAvatarPreviewUrl] = useState(null);
+
+
   const [updatedUser, setUpdatedUser] = useState({
     name: user?.name || '',
     email: user?.email || '',
@@ -43,9 +46,12 @@ function Account() {
     setIsDeleteConfirmationVisible(false);
   };
 
-  const handleDeleteConfirmationConfirm = () => {
-    handleDelete();
+  const handleDeleteConfirmationConfirm = (e) => {
+    e.preventDefault();
+    handleDelete(e);
   };
+  
+  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -56,11 +62,14 @@ function Account() {
   };
 
   const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
     setUpdatedUser((prevState) => ({
       ...prevState,
-      avatar: event.target.files[0]
+      avatar: file
     }));
+    setAvatarPreviewUrl(URL.createObjectURL(file));
   };
+
 
   return (
     <Grid container spacing={3} justifyContent="center">
@@ -113,6 +122,9 @@ function Account() {
               Upload/Update profile image
             </Typography>
             <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            {avatarPreviewUrl && (
+        <img src={avatarPreviewUrl} alt="Profile avatar preview" style={{ width: 100, height: 100, objectFit: 'cover' }} />
+      )}
             <Button variant="contained" style={{ backgroundColor: 'black' }} onClick={handleUpdateClick}>
               Update Info
             </Button>

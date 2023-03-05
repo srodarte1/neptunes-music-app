@@ -129,30 +129,32 @@ export default function Navbar() {
         </DrawerHeader>
         <Divider />
         <List>
-      {['Dashboard', 'Search', 'Playlists'].map((text, index) => (
-        <ListItem
-          key={text}
-          disablePadding
-          button
-          onClick={() => {
-            if (text === 'Dashboard') {
-              navigate('/dashboard');
-            } else if (text === 'Search') {
-              navigate('/search');
-            } else if (text === 'Playlists') {
-              navigate('/playlists');
-            }
-          }}
-        >
-              <ListItemButton>
-                <ListItemIcon style={{color: "white"}}>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+  {['Dashboard', 'Search', 'Playlists'].map((text, index) => (
+    <ListItem
+      key={text}
+      disablePadding
+      button
+      onClick={() => {
+        if (text === 'Dashboard') {
+          navigate('/dashboard');
+        } else if (text === 'Search') {
+          navigate('/search');
+        } else if (text === 'Playlists') {
+          navigate('/playlists');
+        }
+        handleDrawerClose(); // close the drawer after a list item is clicked
+      }}
+    >
+      <ListItemButton>
+        <ListItemIcon style={{ color: 'white' }}>
+          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+        </ListItemIcon>
+        <ListItemText primary={text} />
+      </ListItemButton>
+    </ListItem>
+  ))}
+</List>
+
         <Divider sx={{ backgroundColor: 'white' }} />
 
         <List>
@@ -169,6 +171,7 @@ export default function Navbar() {
             } else if (text === 'Account') {
               navigate('/account');
             }
+            handleDrawerClose()
           }}
         >
               <ListItemButton>
