@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :destroy]
   resources :songs, only: [:index, :show]
   resources :playlists
-  resources :users
+  resources :users, except: [:create, :show]
 
   delete "/logout", to: "sessions#logout"
   post "/login", to: "sessions#login"

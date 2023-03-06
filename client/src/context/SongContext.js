@@ -6,44 +6,68 @@ dotenv.config();
 const SongContext = createContext();
 
 const SongProvider = (props) => {
-  const [currentSong, setCurrentSong] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [accessToken, setAccessToken] = useState(null);
+  const client_id = '8f1ef24269554341bfebf33e0cd56c71';
+  const client_secret = 'f8d5685d0f8340c7a4c24d92a1abe83e';
+  
+  const authorization = btoa(`${client_id}:${client_secret}`);
+
+  const getAccessToken = async () => {
+    try {
+      const response = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Basic ${authorization}`
+        },
+        body: 'grant_type=client_credentials'
+      });
+      const data = await response.json();
+      setAccessToken(data.access_token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const searchSongs = async (searchTerm) => {
+    if (!accessToken) {
+      await getAccessToken();
+    }
+
     const cacheKey = `search-${searchTerm}`;
     const cachedData = localStorage.getItem(cacheKey);
-  
+
     if (cachedData) {
-      setCurrentSong(JSON.parse(cachedData)[0]);
+      setSearchResults(JSON.parse(cachedData));
     } else {
       try {
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track&limit=25`, {
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track&limit=50`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
           },
         });
         const data = await response.json();
         const songData = data.tracks.items;
-  
+
         // Cache the song data in localStorage
         localStorage.setItem(cacheKey, JSON.stringify(songData));
-        
+
         // Handle fetched songs data and update the state with the results
-      
-        setCurrentSong(songData[0]);
+        setSearchResults(songData);
       } catch (error) {
         console.log(error);
       }
     }
   };
-  
 
   return (
-    <SongContext.Provider value={{ currentSong, searchSongs }}>
+    <SongContext.Provider value={{ searchResults, searchSongs }}>
       {props.children}
     </SongContext.Provider>
   );
 };
 
-export  { SongContext, SongProvider }
+export { SongContext, SongProvider };
