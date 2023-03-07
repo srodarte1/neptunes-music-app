@@ -1,74 +1,96 @@
-import React, { useContext } from "react";
-import { PlaylistContext } from "../context/PlaylistContext";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import Button from '@material-ui/core/Button';
-import Playlistbar from '../components/Playlistbar'
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    padding: "16px",
-  },
-  media: {
-    height: 200,
-  },
-  playButton: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    fontSize: "5em",
-    color: "white",
-  },
-});
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import PLaylistbar from '../components/Playlistbar';
 
-const Playlist = () => {
-  const classes = useStyles();
-  const { playlists } = useContext(PlaylistContext);
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <div className={classes.root}>
-      {playlists.length === 0 ? (
-        <div>
-          <Typography variant="h6">You don't have any playlists yet :(</Typography>
-          <Button variant="contained" color="primary">Create Playlist</Button>
-        </div>
-      ) : (
-        <Grid container spacing={2}>
-          {playlists.map((playlist) => (
-            <Grid key={playlist.id} item xs={12} sm={6} md={4} lg={3}>
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={playlist.image_url}
-                    title={playlist.name}
-                  >
-                    <PlayCircleOutlineIcon className={classes.playButton} />
-                  </CardMedia>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {playlist.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    Edit
-                  </Button>
-                  <Button size="small" color="secondary">
-                    Delete
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
       )}
-      <Playlistbar/>
     </div>
   );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
-export default Playlist;
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
+
+ function Playlist() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <>
+    <Box
+      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+    >
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        aria-label="Vertical tabs example"
+        sx={{ borderRight: 1, borderColor: 'divider' }}
+      >
+        <Tab label="Item One" {...a11yProps(0)} />
+        <Tab label="Item Two" {...a11yProps(1)} />
+        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab label="Item Four" {...a11yProps(3)} />
+        <Tab label="Item Five" {...a11yProps(4)} />
+        <Tab label="Item Six" {...a11yProps(5)} />
+        <Tab label="Item Seven" {...a11yProps(6)} />
+      </Tabs>
+      <TabPanel value={value} index={0}>
+        Item One
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Item Three
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        Item Four
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        Item Five
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        Item Six
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        Item Seven
+      </TabPanel>
+    </Box>
+    <Playlistbar/>
+    </>
+  );
+}
+export default Playlist
