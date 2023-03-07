@@ -126,7 +126,8 @@ function Account() {
 
             <input type="file" accept="image/*" onChange={handleAvatarChange} />
             {avatarPreviewUrl && (
-        <img src={avatarPreviewUrl} alt="Profile avatar preview" style={{ width: 100, height: 100, objectFit: 'cover' }} />
+        <img src={avatarPreviewUrl} alt="Profile avatar preview" style={{ width: 250, height: 250, objectFit: 'cover' }} />
+
       )}
             <Button variant="contained" style={{ backgroundColor: 'black' }} onClick={handleUpdateClick}>
               Update Info

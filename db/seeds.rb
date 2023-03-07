@@ -18,7 +18,7 @@ u2= User.create(name: "Neptune",
     u3= User.create(name: "Koda",
         email: 'KuteKodaKat@cats.com',
         password: 'Koda797524!',
-        avatar: 'https://iili.io/HWkCCjp.jpg')
+        avatar: 'https://iili.io/HWkhb1I.jpg')
 
 puts "Seeding fake playlists..."
 # Create 10 playlists, each owned by a user

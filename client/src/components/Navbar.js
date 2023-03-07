@@ -103,7 +103,8 @@ export default function Navbar() {
         NEPTUNES
       </Typography>
       <Box sx={{ marginLeft: 'auto' }}>
-  <Avatar alt={user.name} src={user.avatar} sx={{ width: 40, height: 40 }} />
+      <Avatar alt={user.name} src={user.avatar} sx={{ width: 50, height: 50 }} />
+
 </Box>
 
     </Toolbar>

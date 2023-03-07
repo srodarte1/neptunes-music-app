@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,8 +8,10 @@ const SongContext = createContext();
 const SongProvider = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
+  const [genres, setGenres] = useState([]);
   const client_id = '8f1ef24269554341bfebf33e0cd56c71';
   const client_secret = 'f8d5685d0f8340c7a4c24d92a1abe83e';
+  
   
   const authorization = btoa(`${client_id}:${client_secret}`);
 
@@ -63,8 +65,33 @@ const SongProvider = (props) => {
     }
   };
 
+  // Fetch genres on mount
+  useEffect(() => {
+    const getGenres = async () => {
+      try {
+        const response = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setGenres(data.genres);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (accessToken === null) {
+      getAccessToken();
+    } else {
+      getGenres();
+    }
+  }, [accessToken]);
+  
+
+
   return (
-    <SongContext.Provider value={{ searchResults, searchSongs }}>
+    <SongContext.Provider value={{ searchResults, searchSongs, genres }}>
       {props.children}
     </SongContext.Provider>
   );
