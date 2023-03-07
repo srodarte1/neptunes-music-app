@@ -72,7 +72,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function Navbar() {
   const navigate = useNavigate()
-  const {handleLogout} = useContext(UserContext)
+  const { user, handleLogout} = useContext(UserContext)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -102,7 +102,7 @@ export default function Navbar() {
         NEPTUNES
       </Typography>
       <Box sx={{ marginLeft: 'auto' }}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar alt={user.name} src={user.avatarUrl} />
       </Box>
     </Toolbar>
 </AppBar>

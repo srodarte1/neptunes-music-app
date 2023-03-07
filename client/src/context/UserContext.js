@@ -85,6 +85,26 @@ useEffect(() => {
             }})
           }
 
+          // const handleUpdateUser = (updatedUser) => {
+          //   const formData = new FormData()
+          //   formData.append('avatar', updatedUser.avatar)
+          //   formData.append('id', user.id) 
+          //   fetch(`/users/${user.id}`, {
+          //     method: 'PATCH',
+          //     headers: { "Content-Type": "multipart/form-data"},
+          //     body: formData,
+          //   })
+          //     .then((response) => {
+          //       return response.json();
+          //     })
+          //     .then((data) => {
+          //       if (data.user) {
+          //         setUser(data.user); // update context state
+          //       } else {
+          //         alert(data.errors);
+          //       }
+          //     });
+          // };
           const handleUpdateUser = (updatedUser) => {
             fetch(`/users/${user.id}`, {
               method: 'PATCH',

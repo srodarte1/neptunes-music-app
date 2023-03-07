@@ -10,7 +10,8 @@ import {
   IconButton,
   TextField,
   Typography,
-  Input
+  Input,
+  Snackbar
 } from '@mui/material';
 import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
@@ -18,8 +19,6 @@ function Account() {
   const { user, handleDelete, handleUpdateUser } = useContext(UserContext);
   const [isDeleteConfirmationVisible, setIsDeleteConfirmationVisible] = useState(false);
   const [avatarPreviewUrl, setAvatarPreviewUrl] = useState(null);
-
-
   const [updatedUser, setUpdatedUser] = useState({
     name: user?.name || '',
     email: user?.email || '',
@@ -27,16 +26,17 @@ function Account() {
     avatar: user?.avatar || null
   })
   const [isEditable, setIsEditable] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const handleUpdateClick = () => {
     if (isEditable) {
       handleUpdateUser(updatedUser);
       setIsEditable(false);
+      setIsSnackbarOpen(true);
     } else {
       setIsEditable(true);
     }
   };
-  
 
   const handleDeleteClick = () => {
     setIsDeleteConfirmationVisible(true);
@@ -50,8 +50,6 @@ function Account() {
     e.preventDefault();
     handleDelete(e);
   };
-  
-  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -70,6 +68,9 @@ function Account() {
     setAvatarPreviewUrl(URL.createObjectURL(file));
   };
 
+  const handleSnackbarClose = () => {
+    setIsSnackbarOpen(false);
+  }
 
   return (
     <Grid container spacing={3} justifyContent="center">
@@ -77,7 +78,7 @@ function Account() {
         <Card>
           <CardHeader
             title="Account Overview"
-            avatar={<Avatar />}
+            avatar={<Avatar src={avatarPreviewUrl || user?.avatar} />}
             action={
               <>
                 <IconButton onClick={handleUpdateClick}>
@@ -121,6 +122,8 @@ function Account() {
             <Typography variant="subtitle1" gutterBottom>
               Upload/Update profile image
             </Typography>
+           
+
             <input type="file" accept="image/*" onChange={handleAvatarChange} />
             {avatarPreviewUrl && (
         <img src={avatarPreviewUrl} alt="Profile avatar preview" style={{ width: 100, height: 100, objectFit: 'cover' }} />

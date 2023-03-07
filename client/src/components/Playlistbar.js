@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs() {
+ function Playlistbar() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -89,3 +89,4 @@ export default function VerticalTabs() {
     </Box>
   );
 }
+export default Playlistbar
