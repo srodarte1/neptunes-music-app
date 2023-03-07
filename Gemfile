@@ -20,6 +20,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg_search'
 gem 'httparty'
 gem 'rspotify'
+
 # Gemfile
 
 

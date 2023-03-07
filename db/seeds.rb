@@ -15,12 +15,20 @@ u2= User.create(name: "Neptune",
     email: 'neptune@sailorscout.com',
     password: 'Lala12345!',
     avatar: 'https://static.wikia.nocookie.net/sailormoon/images/b/be/S.M.E_Movie_Michiru_Kaioh_Sailor_Neptune.png/revision/latest?cb=20201220155902')
+    u3= User.create(name: "Koda",
+        email: 'KuteKodaKat@cats.com',
+        password: 'Koda797524!',
+        avatar: 'https://iili.io/HWkCCjp.jpg')
 
 puts "Seeding fake playlists..."
 # Create 10 playlists, each owned by a user
 p1=Playlist.create(name: 'Orbiting', user: u1)
 p2=Playlist.create(name: 'Drifting', user: u2)
-
+p4=Playlist.create(name: 'Meow', user: u3)
+p5=Playlist.create(name: 'Klaw', user: u3)
+p6=Playlist.create(name: 'Klimb', user: u3)
+p7=Playlist.create(name: 'Qt', user: u3)
+p8=Playlist.create(name: 'Nap Time', user: u3)
 
 
 puts "Seeding songs..."

@@ -23,6 +23,7 @@ import { useContext } from 'react'
 import {UserContext} from '../context/UserContext';
 import { useNavigate } from 'react-router-dom'
 
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -102,8 +103,9 @@ export default function Navbar() {
         NEPTUNES
       </Typography>
       <Box sx={{ marginLeft: 'auto' }}>
-      <Avatar alt={user.name} src={user.avatarUrl} />
-      </Box>
+  <Avatar alt={user.name} src={user.avatar} sx={{ width: 40, height: 40 }} />
+</Box>
+
     </Toolbar>
 </AppBar>
 

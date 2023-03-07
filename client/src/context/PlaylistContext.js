@@ -30,6 +30,7 @@ const PlaylistProvider = (props) => {
   
     const data = await response.json();
     setPlaylists(data)
+    console.log(playlists)
   };
   const getPlaylist = async (id) => {
     const response = await fetch(`/playlists/${id}`);

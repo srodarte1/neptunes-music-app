@@ -21,7 +21,7 @@ function Playlistbar() {
 
   return (
     <>
-    <h2>My Playlists:</h2>
+
     <Autocomplete
       id="playlist-search"
       options={mappedPlaylists}

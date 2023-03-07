@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :find_user, only: [ :update, :destroy ]
-    skip_before_action :authorized_user, only: [:create]
+    # skip_before_action :authorized_user, only: [:create]
   
     # GET /users
     def index
@@ -20,11 +20,17 @@ class UsersController < ApplicationController
     end
   
     # PATCH/PUT /users/1
+    # def update
+    #   # byebug
+    #   user = @user.update!(avatar: params[:avatar])
+    #   render json: user, status: :accepted
+    # end
+  
     def update
       @user.update!(user_params)
       render json: {user: @user}, status: :accepted
     end
-  
+
     # DELETE /users/1
     def destroy
       @user.destroy
