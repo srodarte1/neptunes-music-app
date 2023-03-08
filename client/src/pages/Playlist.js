@@ -1,78 +1,50 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import React, { useContext, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 import Playlistbar from '../components/Playlistbar';
 import { PlaylistContext } from '../context/PlaylistContext';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
+import CreatePlaylist from '../containers/CreatePlaylist';
 
 function Playlist() {
-  const { playlists } = useContext(PlaylistContext);
-  const [value, setValue] = React.useState(0);
+  const { playlists, deletePlaylist } = useContext(PlaylistContext);
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  
 
   return (
-    <>
-      <h2>My Playlists:</h2>
-      <Box
-        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
-      >
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          sx={{ borderRight: 1, borderColor: 'divider' }}
-        >
-          {playlists.map((playlist, index) => (
-            <Tab key={index} label={playlist.name} {...a11yProps(index)} />
-          ))}
-        </Tabs>
-        {playlists.map((playlist, index) => (
-          <TabPanel key={index} value={value} index={index}>
-            <Playlistbar playlist={playlist} />
-          </TabPanel>
-        ))}
-      </Box>
-    </>
+    <div className="d-flex justify-content-center">
+      <div className="container">
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="my-4">My Playlists:</h1>
+          <CreatePlaylist />
+        </div>
+        <div className="row">
+          <div className="col-8">
+            <ul className="list-group">
+              {playlists.map((playlist, index) => (
+                <li
+                  key={index}
+                  className={`list-group-item ${value === index ? 'active' : ''}`}
+                  onClick={() => setValue(index)}
+                >
+                  <div className="d-flex justify-content-between">
+                    <div>{playlist.name}</div>
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      onClick={deletePlaylist}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-4 d-flex justify-content-end align-items-center">
+            <Playlistbar playlist={playlists} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

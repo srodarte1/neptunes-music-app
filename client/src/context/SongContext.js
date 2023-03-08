@@ -59,6 +59,7 @@ const SongProvider = (props) => {
 
         // Handle fetched songs data and update the state with the results
         setSearchResults(songData);
+        
       } catch (error) {
         console.log(error);
       }

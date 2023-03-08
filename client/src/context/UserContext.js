@@ -10,7 +10,7 @@ const UserProvider = ({children}) => {
   const navigate = useNavigate()
 
 
-useEffect(() => {
+const authUser = () => {
   fetch("/authorized_user").then((res) => {
     if (res.status === 200) {
       res.json().then((user) => {
@@ -19,8 +19,8 @@ useEffect(() => {
     } else {
       setUser(null)
     }
-  });
-}, [setUser]);
+  })
+}
 
 
 
@@ -130,7 +130,7 @@ useEffect(() => {
 
 
   return (
-   <UserContext.Provider value={{user, setUser, handleLogin, handleDelete, handleSignup, handleLogout, handleUpdateUser}}>
+   <UserContext.Provider value={{authUser, user, setUser, handleLogin, handleDelete, handleSignup, handleLogout, handleUpdateUser}}>
     {children}
    </UserContext.Provider>
   )

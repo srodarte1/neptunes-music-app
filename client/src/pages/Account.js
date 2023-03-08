@@ -71,6 +71,7 @@ function Account() {
   const handleSnackbarClose = () => {
     setIsSnackbarOpen(false);
   }
+  if (!user) return <h1>...loading</h1>
 
   return (
     <Grid container spacing={3} justifyContent="center">

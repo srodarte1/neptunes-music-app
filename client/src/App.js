@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import LoginForm from './containers/LoginForm';
@@ -14,8 +14,11 @@ import Account from './pages/Account';
 
 function App() {
 
-  const { user } = useContext(UserContext)
-
+  const { user, authUser } = useContext(UserContext)
+  
+   useEffect(()=>{
+    authUser()
+    }, [])
   return (
     <div className="App">
       {/* <UserProvider> wrap components that need access to UserContext */}

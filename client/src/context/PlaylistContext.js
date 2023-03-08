@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const PlaylistContext = createContext();
 
@@ -21,17 +21,27 @@ const PlaylistProvider = (props) => {
     const data = await response.json();
     return data;
   };
-  const getPlaylists = async () => {
-    const response = await fetch('/playlists');
-  
+  const getPlaylists = async (userId) => {
+    console.log(userId)
+    const response = await fetch(`/users/${userId}/playlists`);
+    
     if (!response.ok) {
       throw new Error(`Failed to get playlists: ${response.statusText}`);
     }
   
     const data = await response.json();
-    setPlaylists(data)
-    console.log(playlists)
+    setPlaylists(data);
   };
+  
+  
+
+  useEffect(() => {
+    getPlaylists();
+  }, []);
+  
+  
+  
+  
   const getPlaylist = async (id) => {
     const response = await fetch(`/playlists/${id}`);
   
