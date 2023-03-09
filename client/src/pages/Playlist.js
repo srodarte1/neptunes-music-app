@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import EachPlaylist from '../components/EachPlaylist'
 
@@ -10,6 +10,7 @@ import CreatePlaylist from '../containers/CreatePlaylist';
 
 function Playlist() {
   const { playlists, deletePlaylist } = useContext(PlaylistContext);
+  
   const [value, setValue] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -32,10 +33,10 @@ function Playlist() {
                   >
                     <div className="d-flex justify-content-between">
                       <div onClick={() => setModalIsOpen(true)}>{playlist.name}</div>
-                      <FontAwesomeIcon
-                        icon={faTrashAlt}
-                        onClick={() => deletePlaylist(playlist)}
-                      />
+                      <div>
+                        <FontAwesomeIcon icon={faEdit} onClick={() => console.log("Edit playlist")} />
+                        <FontAwesomeIcon icon={faTrashAlt} onClick={() => deletePlaylist(playlist)} />
+                      </div>
                     </div>
                   </li>
                 ))}
@@ -49,6 +50,7 @@ function Playlist() {
         <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
           {<EachPlaylist/>}
           <h2>{playlists[value].name}</h2>
+          
           <p>{playlists[value].description}</p>
           <button onClick={() => setModalIsOpen(false)}>Close</button>
         </Modal>

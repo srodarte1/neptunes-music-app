@@ -37,23 +37,6 @@ const PlaylistProvider = (props) => {
   };
   
 
-  
-  
-  
-  
-  
-  const getPlaylist = async (id) => {
-    const response = await fetch(`/playlists/${id}`);
-  
-    if (!response.ok) {
-      throw new Error(`Failed to get playlist: ${response.statusText}`);
-    }
-  
-    const data = await response.json();
-    return data;
-  };
-  
-  
   const updatePlaylist = async (id, name, user) => {
     const response = await fetch(`/playlists/${id}`, {
       method: "PATCH",
@@ -74,26 +57,14 @@ const PlaylistProvider = (props) => {
     fetch (`/playlists/${playlist.id}`, {
       method: "DELETE",
     })
-    .then(data => console.log(data))
+    .then(response => {
+        if (response.status === 204) {
+            setPlaylists(current => current.filter(p => p.id !== playlist.id))
+    }})
     // .then(data => setPlaylists(current => current.filter(p => p.id !== data.id)))
   };
   
-  const addSongToPlaylist = async (playlistId, songId) => {
-    const response = await fetch(`/playlist_songs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ playlist: playlistId, song: songId }),
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Failed to add song to playlist: ${response.statusText}`);
-    }
-  
-    const data = await response.json();
-    return data;
-  };
+ 
   
   const removeSongFromPlaylist = async (id) => {
     const response = await fetch(`/playlist_songs/${id}`, {
@@ -105,7 +76,7 @@ const PlaylistProvider = (props) => {
     }
   };
   
-  const value = {playlists, addSongToPlaylist, createPlaylist, getPlaylists, getPlaylist, updatePlaylist, deletePlaylist, removeSongFromPlaylist }
+  const value = {playlists, createPlaylist, getPlaylists, updatePlaylist, deletePlaylist, removeSongFromPlaylist }
   return (
     <PlaylistContext.Provider value={value}>
       {props.children}
