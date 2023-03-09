@@ -1,33 +1,35 @@
 import React, { useState, useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { PlaylistContext } from '../context/PlaylistContext';
+import { UserContext } from '../context/UserContext';
 
 const CreatePlaylist = () => {
   const [showForm, setShowForm] = useState(false);
-  const [playlistName, setPlaylistName] = useState('');
-  const { createPlaylist } = useContext(PlaylistContext);
+  const { user } = useContext(UserContext);
+//   console.log(user)
+  const [playlistName, setPlaylistName] = useState({
+    name: "",
+    user_id: user.id});
+  const { createPlaylist } = useContext(PlaylistContext)
+  
+  const handleChange = (e) => {
+    setPlaylistName({...playlistName, [e.target.name]:e.target.value})
+}
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createPlaylist(playlistName);
-      setShowForm(false);
-      setPlaylistName('');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
+  
 
   return (
     <div>
       {showForm ? (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={(e)=> createPlaylist( e, playlistName)}>
           <Form.Group controlId="formPlaylistName">
             <Form.Control
               type="text"
+              name='name'
               placeholder="Enter playlist name"
-              value={playlistName}
-              onChange={(e) => setPlaylistName(e.target.value)}
+              value={playlistName.name}
+              onChange={handleChange}
               required
             />
           </Form.Group>

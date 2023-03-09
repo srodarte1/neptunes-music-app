@@ -1,19 +1,27 @@
 class PlaylistsController < ApplicationController
 #full crud
-before_action :find_playlist, only: [:show, :destroy, :update, :create]
+before_action :find_playlist, only: [:show, :destroy, :update]
 
 
     def index 
-        render json: Playlist.all, status: :ok
+        playlists = Playlist.all
+        render json: playlists , status: :ok
     end
   
+    # def index
+    #     user = User.find(params[:userId])
+    #     playlists = user.playlists
+    #     render json: playlists
+    #   end
 
     def show 
         render json: @playlist, status: :ok
     end
 
     def create
-        render json: Playlist.create!(playlist_params), status: :created
+        # byebug
+        playlist =  Playlist.create!(playlist_params)
+        render json: playlist, status: :created
     end
 
     def update 
@@ -30,12 +38,12 @@ before_action :find_playlist, only: [:show, :destroy, :update, :create]
     private 
 
     def find_playlist
-        @playlist = Playlist.find(params[:id].to_i)
+        @playlist = Playlist.find(params[:id])
       end
       
 
     def playlist_params 
-        params.permit(:name, :user)
+        params.permit(:name, :user_id)
       end
       
 

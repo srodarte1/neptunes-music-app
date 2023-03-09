@@ -79,7 +79,7 @@ function Account() {
         <Card>
           <CardHeader
             title="Account Overview"
-            avatar={<Avatar src={avatarPreviewUrl || user?.avatar} />}
+            avatar={<Avatar src={avatarPreviewUrl || user?.avatar_url} />}
             action={
               <>
                 <IconButton onClick={handleUpdateClick}>

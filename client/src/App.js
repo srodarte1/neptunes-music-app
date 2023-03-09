@@ -9,16 +9,23 @@ import Friends from './pages/Friends';
 import SearchBar from './components/SearchBar';
 import Dashboard from './pages/Dashboard';
 import { UserContext } from './context/UserContext';
+import { PlaylistContext } from './context/PlaylistContext';
 import MusicPlayer from './pages/MusicPlayer';
 import Account from './pages/Account';
 
 function App() {
 
   const { user, authUser } = useContext(UserContext)
+  const { getPlaylists } = useContext(PlaylistContext)
   
    useEffect(()=>{
     authUser()
     }, [])
+    useEffect(() => {
+     if (user) getPlaylists(user.id)
+    
+    }, [user])
+    
   return (
     <div className="App">
       {/* <UserProvider> wrap components that need access to UserContext */}

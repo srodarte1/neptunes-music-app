@@ -1,0 +1,50 @@
+album
+: 
+{album_type: 'album', artists: Array(1), available_markets: Array(182), external_urls: {…}, href: 'https://api.spotify.com/v1/albums/2Ti79nwTsont5ZHfdxIzAm', …}
+artists
+: 
+[{…}]
+available_markets
+: 
+(182) ['AR', 'AU', 'AT', 'BE', 'BO', 'BR', 'BG', 'CA', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DK', 'DO', 'DE', 'EC', 'EE', 'SV', 'FI', 'FR', 'GR', 'GT', 'HN', 'HK', 'HU', 'IS', 'IE', 'IT', 'LV', 'LT', 'LU', 'MY', 'MT', 'MX', 'NL', 'NZ', 'NI', 'NO', 'PA', 'PY', 'PE', 'PH', 'PL', 'PT', 'SG', 'SK', 'ES', 'SE', 'CH', 'TW', 'TR', 'UY', 'US', 'GB', 'AD', 'LI', 'MC', 'ID', 'JP', 'TH', 'VN', 'RO', 'IL', 'ZA', 'SA', 'AE', 'BH', 'QA', 'OM', 'KW', 'EG', 'MA', 'DZ', 'TN', 'LB', 'JO', 'PS', 'IN', 'BY', 'KZ', 'MD', 'UA', 'AL', 'BA', 'HR', 'ME', 'MK', 'RS', 'SI', 'KR', 'BD', 'PK', 'LK', 'GH', 'KE', 'NG', 'TZ', 'UG', 'AG', …]
+disc_number
+: 
+1
+duration_ms
+: 
+135090
+explicit
+: 
+true
+external_ids
+: 
+{isrc: 'USUG11800209'}
+external_urls
+: 
+{spotify: 'https://open.spotify.com/track/0JP9xo3adEtGSdUEISiszL'}
+href
+: 
+"https://api.spotify.com/v1/tracks/0JP9xo3adEtGSdUEISiszL"
+id
+: 
+"0JP9xo3adEtGSdUEISiszL"
+is_local
+: 
+false
+name
+: 
+"Moonlight"
+popularity
+: 
+79
+preview_url
+: 
+"https://p.scdn.co/mp3-preview/f0335e896f76994fba891fc20e64760dd1971ac4?cid=8f1ef24269554341bfebf33e0cd56c71"
+track_number
+: 
+3
+type
+: 
+"track"
+uri
+:

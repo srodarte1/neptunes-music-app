@@ -5,25 +5,28 @@ const PlaylistContext = createContext();
 const PlaylistProvider = (props) => {
   const [playlists, setPlaylists] = useState([]);
 
-  const createPlaylist = async (name, user) => {
-    const response = await fetch(`$/playlists`, {
+  const createPlaylist = (e, playlistName) => {
+        e.preventDefault()
+      fetch (`/playlists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, user }),
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Failed to create playlist: ${response.statusText}`);
-    }
-  
-    const data = await response.json();
-    return data;
-  };
+      body: JSON.stringify(playlistName),
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to create playlist: ${response.statusText}`)
+        }
+        else{
+            response.json().then(data => setPlaylists(current =>[...current, data ]))
+        }
+
+    })
+}
+    
   const getPlaylists = async (userId) => {
-    console.log(userId)
-    const response = await fetch(`/users/${userId}/playlists`);
+    const response = await fetch(`/playlists?user=${userId}`);
     
     if (!response.ok) {
       throw new Error(`Failed to get playlists: ${response.statusText}`);
@@ -33,11 +36,8 @@ const PlaylistProvider = (props) => {
     setPlaylists(data);
   };
   
-  
 
-  useEffect(() => {
-    getPlaylists();
-  }, []);
+  
   
   
   
@@ -70,14 +70,12 @@ const PlaylistProvider = (props) => {
     const data = await response.json();
     return data;
   };
-  const deletePlaylist = async (id) => {
-    const response = await fetch(`/playlists/${id}`, {
+  const deletePlaylist = (playlist) => {
+    fetch (`/playlists/${playlist.id}`, {
       method: "DELETE",
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Failed to delete playlist: ${response.statusText}`);
-    }
+    })
+    .then(data => console.log(data))
+    // .then(data => setPlaylists(current => current.filter(p => p.id !== data.id)))
   };
   
   const addSongToPlaylist = async (playlistId, songId) => {

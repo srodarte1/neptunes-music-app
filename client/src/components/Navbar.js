@@ -103,7 +103,7 @@ export default function Navbar() {
         NEPTUNES
       </Typography>
       <Box sx={{ marginLeft: 'auto' }}>
-      <Avatar alt={user.name} src={user.avatar} sx={{ width: 50, height: 50 }} />
+      <Avatar alt={user.name} src={user.avatar_url} sx={{ width: 50, height: 50 }} />
 
 </Box>
 
@@ -161,7 +161,7 @@ export default function Navbar() {
         <Divider sx={{ backgroundColor: 'white' }} />
 
         <List>
-      {['Friends', 'Music Player', 'Account'].map((text, index) => (
+      {['Friends', 'Account'].map((text, index) => (
         <ListItem
           key={text}
           disablePadding
@@ -169,8 +169,7 @@ export default function Navbar() {
           onClick={() => {
             if (text === 'Friends') {
               navigate('/friends');
-            } else if (text === 'Music Player') {
-              navigate('/music-player');
+        
             } else if (text === 'Account') {
               navigate('/account');
             }

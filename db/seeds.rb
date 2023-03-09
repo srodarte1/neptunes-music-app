@@ -7,18 +7,30 @@ User.destroy_all
 
 puts "Seeding user..."
 
-u1= User.create(name: "Saturn",
-    email: 'saturn@sailorscout.com',
-    password: 'Nike797524!',
-    avatar: 'https://static.wikia.nocookie.net/p__/images/a/ab/Sailor_Saturn_Season_III.png/revision/latest?cb=20170423023847&path-prefix=protagonist')
-u2= User.create(name: "Neptune",
-    email: 'neptune@sailorscout.com',
-    password: 'Lala12345!',
-    avatar: 'https://static.wikia.nocookie.net/sailormoon/images/b/be/S.M.E_Movie_Michiru_Kaioh_Sailor_Neptune.png/revision/latest?cb=20201220155902')
-    u3= User.create(name: "Koda",
-        email: 'KuteKodaKat@cats.com',
-        password: 'Koda797524!',
-        avatar: 'https://iili.io/HWkhb1I.jpg')
+u1= User.create(name: "Sadie",
+    email: 'sadie@dogs.com',
+    password: 'Sadie1234',
+    avatar: 'https://iili.io/HXqoWzb.jpg')
+u2= User.create(name: "Binx",
+    email: 'Binx@cats.com',
+    password: 'Binx1234',
+    avatar: 'https://iili.io/HXqoZ7t.jpg')
+u3= User.create(name: "Koda",
+    email: 'KuteKodaKat@cats.com',
+    password: 'Koda797524!',
+    avatar: 'https://iili.io/HWkhb1I.jpg')
+u4= User.create(name: "Kylo",
+    email: 'Kylo@dogs.com',
+    password: 'Kylo1234',
+    avatar: 'https://iili.io/HXqxu3B.jpg')
+u5= User.create(name: "Gemini",
+    email: 'Geminin@cats.com',
+    password: 'Gemini1234',
+    avatar: 'https://iili.io/HXqxAYP.jpg')
+u6= User.create(name: "Peanut",
+    email: 'Peanut@dogs.com',
+    password: 'Peanut1234',
+    avatar: 'https://iili.io/HXqxaja.jpg')
 
 puts "Seeding fake playlists..."
 # Create 10 playlists, each owned by a user
@@ -38,7 +50,11 @@ s1=Song.create(name: 'Happy', artist: 'Pharrell Williams', album_name: 'Happy', 
 
 puts "Seeding friendships... "
 
-fr1=Friendship.create(recipient: u1, sender: u2, status: "accepted")
+fr1=Friendship.create(recipient: u3, sender: u2, status: "accepted")
+f2=Friendship.create(recipient: u3, sender: u6, status: "pending")
+f3=Friendship.create(recipient: u3, sender: u1, status: "accepted")
+f4=Friendship.create(recipient: u3, sender: u4, status: "pending")
+f5=Friendship.create(recipient: u3, sender: u5, status: "pending")
 
 
 puts "Seeding playlist songs..."
